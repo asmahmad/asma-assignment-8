@@ -34,12 +34,12 @@ class Assignment8Test {
    	while (tasks.stream().filter(CompletableFuture::isDone).count()<1000) {}
     	 
     	ConcurrentMap<Integer, Integer> numberFrequencyMap = new ConcurrentHashMap<>();
-        for (CompletableFuture<List<Integer>> numbers : tasks) {
+        for (CompletableFuture<List<Integer>> numbersLists : tasks) {
             try {
-                List<Integer> number = numbers.get();
-                	for(int n :number) {
+                List<Integer> numberList = numbersLists.get();
+                	for(int number :numberList) {
                 		 synchronized (numberFrequencyMap) {
-                        	 numberFrequencyMap.merge(n, 1, Integer::sum); 	
+                        	 numberFrequencyMap.merge(number, 1, Integer::sum); 	
         				}   
                 	}
             } catch (InterruptedException | ExecutionException e) {
